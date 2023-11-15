@@ -8,3 +8,8 @@ jobs:
     steps:
       - name: aws version
         run: aws --version
+      - name: "'Configure AWS Credentials' Action for GitHub Actions"
+        uses: aws-actions/configure-aws-credentials@v4.0.1
+        with:
+          role-to-assume: arn:aws:iam::277022695058:role/PipelinePowerUserRole
+          aws-region: us-east-1
