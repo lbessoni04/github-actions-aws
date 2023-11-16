@@ -63,7 +63,7 @@ jobs:
           ENV_EXISTS='true'
         fi
         echo ${ENV_EXISTS}
-        if [["$ENV_EXISTS" == 'false']]; then
+        if [["${ENV_EXISTS}" == 'false']]; then
           eb create ${ENV_NAME}
         fi
     - name: Deploy to EB
