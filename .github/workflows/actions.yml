@@ -15,10 +15,6 @@ jobs:
         dotnet-version: '6.0.x'
     - name: Publish
       run: dotnet publish WebApi -o site
-    - name: Check root directory
-      run: ls -la
-    - name: Check site directory
-      run: cd site && ls -la
     - name: Generate deployment package
       run: cd site; zip -r ../deploy.zip . -x '*.git*'; cd ..
     - name: Upload .NET to artifact
@@ -32,8 +28,12 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    if: ${{false}}
     steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: dotnet-zip
+    - name: Display structure of downloaded files
+      run: ls -R
     - name: Setup EB CLI
       run: |
         python --version
@@ -48,8 +48,8 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         role-duration-seconds: 1800
         aws-region: 'us-east-1'
-    - name: Deploy to EB
-      run: |
-        eb init dotnet-api-test --region 'us-east-1' --platform "64bit Amazon Linux 2023 v3.0.0 running .NET 6"
-        eb create dotnet-api-test-dev   
-        eb deploy dotnet-api-test-dev --staged
+    #- name: Deploy to EB
+      #run: |
+      # eb init dotnet-api-test --region 'us-east-1' --platform "64bit Amazon Linux 2023 v3.0.0 running .NET 6"
+      #  eb create dotnet-api-test-dev   
+      #  eb deploy dotnet-api-test-dev --staged
