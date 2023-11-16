@@ -61,7 +61,7 @@ jobs:
         if [[ "$ENV_LIST" == *"$ENV_NAME"* ]]; then
           ENV_EXISTS = true
         fi
-        echo ENV_EXISTS
+        echo $ENV_EXISTS
 
     #- name: Deploy to EB
     #  run: | 
