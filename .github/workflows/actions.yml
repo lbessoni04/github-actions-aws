@@ -57,9 +57,9 @@ jobs:
     - name: Create environment if it doesn't exists
       run: |
         eb init dotnet-api-test --region 'us-east-1' --platform "64bit Amazon Linux 2023 v3.0.0 running .NET 6" 
-        ENV_LIST = $(eb list)
+        ENV_LIST=$(eb list)
         if [[ "$ENV_LIST" == *"$ENV_NAME"* ]]; then
-          ENV_EXISTS = true
+          ENV_EXISTS=true
         fi
         echo $ENV_EXISTS
 
