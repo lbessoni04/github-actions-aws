@@ -15,8 +15,10 @@ jobs:
         dotnet-version: '6.0.x'
     - name: Publish
       run: dotnet publish WebApi -o site
-    - name: Check directory
+    - name: Check root directory
       run: ls -la
+    - name: Check site directory
+      run: cd site && ls -la
     - name: Generate deployment package
       run: cd site; zip -r ../deploy.zip . -x '*.git*'; cd ..
     - name: Upload .NET to artifact
