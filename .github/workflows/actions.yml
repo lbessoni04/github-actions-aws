@@ -1,17 +1,38 @@
-name: aws-workflow
-
-on: [push]
-
+name: Deploy .NET
+on:
+  push:
+    branches:
+    - main
 jobs:
-  run-shell-command:
+  build_deploy:
+    name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: aws version
-        run: aws --version
-      - name: "'Configure AWS Credentials' Action for GitHub Actions"
-        uses: aws-actions/configure-aws-credentials@v4.0.1
-        with:
-          role-to-assume: arn:aws:iam::277022695058:role/PipelinePowerUserRole
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+    - name: Checkout source code
+      uses: actions/checkout@v2
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+    - name: Publish
+      run: dotnet publish WebApi -o site
+    - name: Generate deployment package
+      run: cd site; zip -r ../deploy.zip . -x '*.git*'; cd ..
+    - name: Upload .NET to artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dotnet-zip
+        path: deploy.zip
+    - name: Setup EB CLI
+      run: |
+        python --version
+        pip --version
+        pip install awsebcli --upgrade --user
+        eb --version
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2 # More information on this action can be found below in the 'AWS Credentials' section
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: 'us-east-1'
+    - name: Deploy to EB
+      run: eb deploy dotnet-api-test-dev --staged
