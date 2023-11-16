@@ -2,7 +2,7 @@ name: Deploy .NET
 on:
   push:
     branches:
-    - main
+    - master
 jobs:
   build_deploy:
     name: Build & Deploy
