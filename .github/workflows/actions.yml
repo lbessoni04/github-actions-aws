@@ -33,6 +33,8 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: dotnet-zip
+    - name: Unzip artifact
+      run: unzip -l deploy.zip
     - name: Display structure of downloaded files
       run: ls -R
     - name: Setup EB CLI
