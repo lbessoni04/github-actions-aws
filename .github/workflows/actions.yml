@@ -37,4 +37,6 @@ jobs:
         role-duration-seconds: 1800
         aws-region: 'us-east-1'
     - name: Deploy to EB
-      run: eb deploy dotnet-api-test-dev --staged
+      run: |
+        eb init
+        eb deploy dotnet-api-test-dev --staged
