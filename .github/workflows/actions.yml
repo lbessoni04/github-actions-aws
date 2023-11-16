@@ -38,5 +38,5 @@ jobs:
         aws-region: 'us-east-1'
     - name: Deploy to EB
       run: |
-        eb init dotnet-api-test --region 'us-east-1'
+        eb init dotnet-api-test --region 'us-east-1' --platform "64bit Amazon Linux 2023 v3.0.0 running .NET 6"
         eb deploy dotnet-api-test-dev --staged
