@@ -38,5 +38,5 @@ jobs:
         aws-region: 'us-east-1'
     - name: Deploy to EB
       run: |
-        eb init
+        eb init --region 'us-east-1'
         eb deploy dotnet-api-test-dev --staged
