@@ -27,7 +27,7 @@ jobs:
         name: dotnet-zip
         path: deploy.zip
     - name: Check artifact
-      run: unzip -l deploy.zip | less
+      run: unzip -l deploy.zip
     
   deploy:
     name: Deploy
