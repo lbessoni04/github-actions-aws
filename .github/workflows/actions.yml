@@ -34,7 +34,7 @@ jobs:
       with:
         name: dotnet-zip
     - name: Unzip artifact
-      run: unzip -l deploy.zip
+      run: unzip deploy.zip
     - name: Display structure of downloaded files
       run: ls -R
     - name: Setup EB CLI
