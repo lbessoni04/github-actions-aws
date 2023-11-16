@@ -59,7 +59,7 @@ jobs:
         ENV_LIST=$(eb list)
         echo ${ENV_LIST}
         if [[ "${ENV_LIST}" == *"${ENV_NAME}"* ]]; then
-          $ENV_EXISTS = 'true'
+          $ENV_EXISTS='true'
         fi
         echo ${ENV_EXISTS}
         if [["$ENV_EXISTS"]]; then
