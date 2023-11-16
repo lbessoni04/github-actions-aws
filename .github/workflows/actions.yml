@@ -58,11 +58,11 @@ jobs:
       run: |
         eb init dotnet-api-test --region 'us-east-1' --platform "64bit Amazon Linux 2023 v3.0.0 running .NET 6" 
         ENV_LIST=$(eb list)
-        echo $ENV_LIST
-        if [[ "$ENV_LIST" == *"$ENV_NAME"* ]]; then
+        echo ${ENV_LIST}
+        if [[ "${ENV_LIST}" == *"${ENV_NAME}"* ]]; then
           ENV_EXISTS=true
         fi
-        echo $ENV_EXISTS
+        echo ${ENV_EXISTS}
 
     #- name: Deploy to EB
     #  run: | 
