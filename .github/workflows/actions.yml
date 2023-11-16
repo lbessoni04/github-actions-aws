@@ -64,7 +64,7 @@ jobs:
         fi
         echo ${ENV_EXISTS}
     - name: Create environment
-      if: ${{$ENV_EXISTS != 'true'}}
+      if: ${{env.ENV_EXISTS != 'true'}}
       run: eb create ${ENV_NAME}
     - name: Deploy to EB
       run: | 
